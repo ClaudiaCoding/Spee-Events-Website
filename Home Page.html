@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spee Events & Experiences</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* lettertypes */
+      --font-display: 'Cinzel', serif;      /* koppen, navigatie, merknaam */
+      --font-body: 'Cormorant Garamond', serif;
+      --font-script: 'Great Vibes', cursive; /* sierlijke accenten */
+
+      /* kleuren */
+      --black: #0a0a0a;
+      --black-rgb: 10, 10, 10;               /* voor rgba() met wisselende transparantie */
+      --gold: #d4af37;
+      --gold-rgb: 212, 175, 55;              /* voor rgba() met wisselende transparantie */
+      --gold-light: #f5d97a;
+      --gold-deep: #b8860b;
+      --gold-gradient: linear-gradient(135deg, #b8860b 0%, #f5d97a 35%, #d4af37 55%, #9c7a1f 100%);
+
+      /* teksttinten */
+      --text-muted: #cbb98f;
+      --text-cream: #e6dcc0;
+      --text-soft: #d8ceb2;
+      --text-dim: #9a8c64;
+      --text-faint: #7a6f52;
+
+      /* panelen (dropdown e.d.) */
+      --panel-bg: rgba(14, 14, 14, 0.98);
+
+      /* actuele hoogte van de sticky header; wordt via JS bijgewerkt */
+      --header-h: 74px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--text-muted);
+      font-family: var(--font-body);
+      font-size: 20px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* subtle gold vignette glow behind the hero */
+    body::before {
+      content: "";
+      position: fixed;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 900px;
+      background: radial-gradient(circle, rgba(var(--gold-rgb),0.10) 0%, rgba(var(--gold-rgb),0) 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    .gold-text {
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: var(--gold);
+    }
+
+    /* ---------- NAVIGATION ---------- */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(var(--black-rgb),0.82);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(var(--gold-rgb),0.18);
+    }
+
+    .nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 32px;
+    }
+
+    .brand {
+      font-family: var(--font-display);
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .brand small {
+      display: block;
+      font-size: 0.5rem;
+      letter-spacing: 0.42em;
+      color: var(--text-muted);
+      margin-top: 4px;
+      font-family: var(--font-display);
+    }
+
+    /* reserves space for the logo/image you'll add later */
+    .brand-placeholder {
+      width: 120px;
+      height: 40px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      position: relative;
+      padding: 4px 0;
+      transition: color 0.3s ease;
+    }
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0; bottom: -2px;
+      width: 0; height: 1px;
+      background: var(--gold-gradient);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--gold-light); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--gold);
+      font-size: 1.6rem;
+      cursor: pointer;
+    }
+
+    /* ---- Boekingsknop ---- */
+    .nav-links a.nav-cta {
+      color: var(--black);
+      background: var(--gold-gradient);
+      padding: 10px 26px;
+      border-radius: 3px;
+      transition: filter 0.3s ease, transform 0.3s ease;
+    }
+    .nav-links a.nav-cta::after { display: none; }
+    .nav-links a.nav-cta:hover {
+      color: var(--black);
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+    }
+
+    /* ---- Package Deals dropdown ---- */
+    .dropdown { position: relative; }
+
+    .dropdown-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 0;
+      transition: color 0.3s ease;
+    }
+    .dropdown-toggle:hover { color: var(--gold-light); }
+    .dropdown-toggle .caret {
+      font-size: 0.6rem;
+      transition: transform 0.3s ease;
+    }
+    .dropdown.open .dropdown-toggle { color: var(--gold-light); }
+    .dropdown.open .dropdown-toggle .caret { transform: rotate(180deg); }
+
+    .dropdown-menu {
+      list-style: none;
+      position: absolute;
+      top: calc(100% + 14px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      min-width: 210px;
+      background: var(--panel-bg);
+      border: 1px solid rgba(var(--gold-rgb),0.28);
+      border-radius: 12px;
+      padding: 10px 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.28s ease, transform 0.28s ease, visibility 0.28s;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.5);
+      z-index: 120;
+    }
+    .dropdown-menu::before {
+      content: "";
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+      width: 10px;
+      height: 10px;
+      background: var(--panel-bg);
+      border-left: 1px solid rgba(var(--gold-rgb),0.28);
+      border-top: 1px solid rgba(var(--gold-rgb),0.28);
+    }
+    .dropdown:hover .dropdown-menu,
+    .dropdown.open .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+    .dropdown-menu li { width: 100%; }
+    .dropdown-menu a {
+      display: block;
+      padding: 11px 24px;
+      font-family: var(--font-display);
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      white-space: nowrap;
+      transition: color 0.25s ease, background 0.25s ease;
+    }
+    .dropdown-menu a::after { display: none; }
+    .dropdown-menu a:hover {
+      color: var(--gold-light);
+      background: rgba(var(--gold-rgb),0.08);
+    }
+
+    /* ---------- HERO / INTRO ---------- */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: calc(100vh - var(--header-h));  /* fallback voor oudere browsers */
+      min-height: calc(100dvh - var(--header-h));
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px;
+    }
+
+    .hero .eyebrow {
+      font-family: var(--font-script);
+      font-size: 2rem;
+      color: var(--gold-light);
+      margin-bottom: 8px;
+      opacity: 0.9;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(2.4rem, 6vw, 4.6rem);
+      letter-spacing: 0.14em;
+      line-height: 1.15;
+      margin-bottom: 6px;
+    }
+
+    .hero .subtitle {
+      font-family: var(--font-display);
+      font-size: clamp(0.7rem, 1.6vw, 0.95rem);
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 34px;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin: 0 auto 34px;
+      width: 220px;
+    }
+    .divider::before, .divider::after {
+      content: "";
+      height: 1px;
+      flex: 1;
+      background: linear-gradient(90deg, transparent, var(--gold-deep), transparent);
+    }
+    .divider span { color: var(--gold); font-size: 0.7rem; }
+
+    .mission {
+      max-width: 680px;
+      font-size: 1.28rem;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--text-cream);
+      margin-bottom: 44px;
+    }
+
+    .cta {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      border: 1px solid var(--gold-deep);
+      padding: 15px 40px;
+      transition: all 0.35s ease;
+    }
+    .cta:hover {
+      background: var(--gold-gradient);
+      color: var(--black);
+      border-color: transparent;
+    }
+
+    /* ---------- ERVARINGEN / PACKAGES ---------- */
+    .section {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 90px 24px;
+      text-align: center;
+    }
+    .section h2 {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      letter-spacing: 0.16em;
+      margin-bottom: 8px;
+    }
+    .section .script-accent {
+      font-family: var(--font-script);
+      font-size: 1.7rem;
+      color: var(--gold-light);
+      margin-bottom: 50px;
+    }
+
+    .packages {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 26px;
+    }
+
+    .package-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 40px 26px 34px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0) 100%);
+      border: 1px solid rgba(var(--gold-rgb),0.30);
+      border-radius: 18px;
+      color: var(--text-muted);
+      transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+    }
+    .package-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--gold);
+      box-shadow: 0 18px 45px rgba(var(--gold-rgb),0.14);
+    }
+
+    .package-card .icon {
+      width: 52px;
+      height: 52px;
+      margin-bottom: 22px;
+      color: var(--gold);
+    }
+    .package-card .icon svg { width: 100%; height: 100%; }
+
+    .package-card h3 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1.15rem;
+      letter-spacing: 0.10em;
+      line-height: 1.3;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .package-card .price {
+      font-family: var(--font-body);
+    }
+    .package-card .price .from {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 0.6rem;
+      letter-spacing: 0.28em;
+      color: var(--black);
+      background: var(--gold-gradient);
+      padding: 4px 16px;
+      border-radius: 3px;
+      margin-bottom: 8px;
+    }
+    .package-card .price .amount {
+      display: block;
+      font-size: 2.1rem;
+      font-weight: 500;
+      color: var(--gold-light);
+      margin-bottom: 22px;
+    }
+
+    .package-card ul {
+      list-style: none;
+      text-align: left;
+      width: 100%;
+      margin-bottom: 26px;
+      flex-grow: 1;
+    }
+    .package-card ul li {
+      position: relative;
+      padding: 6px 0 6px 24px;
+      font-size: 1.02rem;
+      font-weight: 300;
+      color: var(--text-soft);
+    }
+    .package-card ul li::before {
+      content: "\2713";
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-size: 0.85rem;
+      top: 8px;
+    }
+
+    .package-card .card-link {
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: gap 0.3s ease;
+    }
+    .package-card:hover .card-link { gap: 14px; }
+
+    /* ---------- WAAROM SPEE ---------- */
+    .why {
+      border-top: 1px solid rgba(var(--gold-rgb),0.14);
+      border-bottom: 1px solid rgba(var(--gold-rgb),0.14);
+      background: linear-gradient(180deg, rgba(var(--gold-rgb),0.03), rgba(0,0,0,0));
+      max-width: 900px;
+      padding-top: 56px;
+      padding-bottom: 56px;
+    }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 36px;
+      margin-top: 32px;
+    }
+    .value {
+      text-align: center;
+    }
+    .value h3 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      color: var(--gold-light);
+    }
+    .value p {
+      font-weight: 300;
+      font-size: 1.02rem;
+      color: var(--text-soft);
+      max-width: 240px;
+      margin: 0 auto;
+    }
+
+    /* ---------- REVIEWS ---------- */
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 26px;
+      margin-top: 46px;
+    }
+    .review {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      padding: 34px 30px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0));
+      border: 1px solid rgba(var(--gold-rgb),0.24);
+      border-radius: 16px;
+    }
+    .review .stars {
+      color: var(--gold);
+      letter-spacing: 3px;
+      font-size: 1rem;
+      margin-bottom: 16px;
+    }
+    .review .quote {
+      font-family: var(--font-body);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 1.18rem;
+      line-height: 1.6;
+      color: var(--text-cream);
+      margin-bottom: 24px;
+      flex-grow: 1;
+    }
+    .review .author {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .review .avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      color: var(--black);
+      background: var(--gold-gradient);
+    }
+    .review .author .name {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      color: var(--gold-light);
+    }
+    .review .author .meta {
+      font-size: 0.92rem;
+      color: var(--text-dim);
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid rgba(var(--gold-rgb),0.18);
+      text-align: center;
+      padding: 40px 24px;
+    }
+    footer .brand {
+      display: inline-block;
+      margin-bottom: 14px;
+    }
+    footer .contact {
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+    footer .contact span { margin: 0 12px; }
+    footer .copyright {
+      margin-top: 18px;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      color: var(--text-faint);
+      font-family: var(--font-display);
+    }
+
+    /* ---------- RESPONSIVE (groot -> klein) ---------- */
+    @media (max-width: 980px) {
+      .packages { grid-template-columns: repeat(2, 1fr); }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; gap: 46px; }
+    }
+
+    @media (max-width: 780px) {
+      .nav-toggle { display: block; }
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        background: var(--black);
+        border-bottom: 1px solid rgba(var(--gold-rgb),0.18);
+        max-height: 0;
+        overflow-y: auto;
+        transition: max-height 0.4s ease;
+      }
+      /* schaalt mee met de inhoud, ook met open dropdown, en scrollt indien nodig */
+      .nav-links.open { max-height: 85vh; }
+      .nav-links li { width: 100%; }
+      .nav-links > li > a,
+      .dropdown-toggle {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        padding: 18px 0;
+        border-top: 1px solid rgba(var(--gold-rgb),0.10);
+      }
+
+      /* dropdown wordt een inline accordion op mobiel */
+      .dropdown-menu {
+        position: static;
+        transform: none;
+        opacity: 1;
+        visibility: visible;
+        min-width: 0;
+        width: 100%;
+        border: none;
+        border-radius: 0;
+        background: rgba(255,255,255,0.04);
+        box-shadow: none;
+        padding: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.35s ease;
+      }
+      .dropdown-menu::before { display: none; }
+      /* overschrijf de desktop open-transform (zelfde specificiteit, wint hier) */
+      .dropdown:hover .dropdown-menu { max-height: 0; transform: none; }
+      .dropdown.open .dropdown-menu { max-height: 320px; transform: none; }
+      .dropdown-menu a {
+        justify-content: center;
+        text-align: center;
+        padding: 15px 0;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .packages { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav class="nav">
+      <!-- Logo/afbeelding komt hier later -->
+      <div class="brand-placeholder"></div>
+      <button class="nav-toggle" aria-label="Menu">&#9776;</button>
+      <ul class="nav-links" id="navLinks">
+        <li class="dropdown" id="pkgDropdown">
+          <button class="dropdown-toggle" id="pkgToggle" aria-expanded="false" aria-haspopup="true">
+            Package Deals <span class="caret">&#9662;</span>
+          </button>
+          <ul class="dropdown-menu">
+            <li><a href="#sweet-package">Sweet Package</a></li>
+            <li><a href="#led-package">LED Package</a></li>
+            <li><a href="#yacht-package">Yacht Package</a></li>
+            <li><a href="#experience-package">Experience Package</a></li>
+          </ul>
+        </li>
+        <li><a href="#branding-op-maat">Branding op maat</a></li>
+        <li><a href="#boeken" class="nav-cta">Boek nu</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="eyebrow">Wij maken uw moment</p>
+      <h1 class="gold-text">Spee Events &amp; Experiences</h1>
+      <p class="subtitle">Luxe momenten, onvergetelijke ervaringen</p>
+
+      <div class="divider"><span>&#10070;</span></div>
+
+      <p class="mission">
+        Wij vertalen uw wensen naar een ervaring om nooit te vergeten, tot in de
+        kleinste details, volledig op maat en met oog voor luxe.
+      </p>
+
+      <a href="#sweet-package" class="cta">Ontdek onze ervaringen</a>
+    </section>
+
+    <section class="section" id="ervaringen">
+      <h2 class="gold-text">Complete ervaringen</h2>
+      <p class="script-accent">Kies wat bij uw event past</p>
+
+      <div class="packages">
+
+        <!-- SWEET PACKAGE -->
+        <a href="#" class="package-card" id="sweet-package">
+          <span class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 11a6 6 0 0 1 12 0"/>
+              <path d="M5 11h14l-1.2 3H6.2z"/>
+              <path d="M6.2 14l.6 5.5a1 1 0 0 0 1 .9h8.4a1 1 0 0 0 1-.9l.6-5.5"/>
+              <path d="M12 3v2M12 5c-1 0-1.5.8-1 1.6.4.7 1.6.7 2 0 .5-.8 0-1.6-1-1.6z"/>
+            </svg>
+          </span>
+          <h3>Sweet<br>Package</h3>
+          <div class="price">
+            <span class="from">Vanaf</span>
+            <span class="amount">&euro;20</span>
+          </div>
+          <ul>
+            <li>Cupcakes / taarten</li>
+            <li>Op maat gemaakt</li>
+            <li>Vanaf 6 stuks</li>
+          </ul>
+          <span class="card-link">Bekijk &rarr;</span>
+        </a>
+
+        <!-- LED PACKAGE -->
+        <a href="#" class="package-card" id="led-package">
+          <span class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2.5" y="4" width="13" height="9" rx="1"/>
+              <path d="M7 17h4M9 13v4"/>
+              <rect x="17.5" y="9" width="4" height="8" rx="1"/>
+              <circle cx="19.5" cy="12.5" r="1"/>
+              <circle cx="19.5" cy="15" r="0.6"/>
+            </svg>
+          </span>
+          <h3>LED<br>Package</h3>
+          <div class="price">
+            <span class="from">Vanaf</span>
+            <span class="amount">&euro;600</span>
+          </div>
+          <ul>
+            <li>LED scherm 5m x 2m</li>
+            <li>JBL PartyBox 1000</li>
+            <li>Opbouw &amp; afbouw</li>
+          </ul>
+          <span class="card-link">Bekijk &rarr;</span>
+        </a>
+
+        <!-- YACHT PACKAGE -->
+        <a href="#" class="package-card" id="yacht-package">
+          <span class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 15h18l-2.2 3.4a2 2 0 0 1-1.7.9H6.9a2 2 0 0 1-1.7-.9z"/>
+              <path d="M6 15V8l9-2v9"/>
+              <path d="M6 8l9-2"/>
+              <path d="M15 6V4"/>
+            </svg>
+          </span>
+          <h3>Yacht<br>Package</h3>
+          <div class="price">
+            <span class="from">Vanaf</span>
+            <span class="amount">&euro;750</span>
+          </div>
+          <ul>
+            <li>15,5 m luxe motorjacht</li>
+            <li>Ervaren schipper</li>
+            <li>Max. 10 personen</li>
+          </ul>
+          <span class="card-link">Bekijk &rarr;</span>
+        </a>
+
+        <!-- EXPERIENCE PACKAGE -->
+        <a href="#" class="package-card" id="experience-package">
+          <span class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3l2.5 5.3 5.5.7-4 3.9 1 5.6L12 16l-5 2.4 1-5.6-4-3.9 5.5-.7z"/>
+            </svg>
+          </span>
+          <h3>Experience<br>Package</h3>
+          <div class="price">
+            <span class="from">Vanaf</span>
+            <span class="amount">&euro;1200</span>
+          </div>
+          <ul>
+            <li>LED scherm + JBL</li>
+            <li>Branding op maat</li>
+            <li>Totaalbeleving</li>
+          </ul>
+          <span class="card-link">Bekijk &rarr;</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- WAAROM SPEE -->
+    <section class="section why" id="waarom-spee">
+      <h2 class="gold-text">Waarom Spee</h2>
+      <p class="script-accent">Wij maken van uw moment een ervaring</p>
+
+      <div class="why-grid">
+        <div class="value">
+          <h3>Luxe</h3>
+          <p>Tot in de details verzorgd, met oog voor kwaliteit en stijl.</p>
+        </div>
+
+        <div class="value">
+          <h3>Persoonlijk</h3>
+          <p>Volledig op maat voor u, precies zoals u het voor zich ziet.</p>
+        </div>
+
+        <div class="value">
+          <h3>Onvergetelijk</h3>
+          <p>Meer dan een event, een moment om nooit te vergeten.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- KLANTENREVIEWS -->
+    <section class="section" id="reviews">
+      <h2 class="gold-text">Wat onze gasten zeggen</h2>
+      <p class="script-accent">Ervaringen van onze klanten</p>
+
+      <div class="reviews-grid">
+        <div class="review">
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="quote">"Een onvergetelijke avond op het jacht. Alles klopte, van het welkomstdrankje tot de styling. Echt tot in de puntjes verzorgd."</p>
+          <div class="author">
+            <span class="avatar">SM</span>
+            <div>
+              <div class="name">Sophie M.</div>
+              <div class="meta">Verjaardagsfeest</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review">
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+          <p class="quote">"Voor ons bedrijfsuitje het LED Package geboekt. Professioneel geregeld en onze gasten waren laaiend enthousiast. Aanrader!"</p>
+          <div class="author">
+            <span class="avatar">TV</span>
+            <div>
+              <div class="name">Thomas V.</div>
+              <div class="meta">Bedrijfsuitje</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review">
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="quote">"De taarten waren prachtig en de branding op maat maakte ons feest echt persoonlijk. Bedankt voor de perfecte dag!"</p>
+          <div class="author">
+            <span class="avatar">LK</span>
+            <div>
+              <div class="name">Lisa K.</div>
+              <div class="meta">Bruiloft</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <a href="#" class="brand gold-text">DS SPEE<small>Events &amp; Experiences</small></a>
+    <p class="contact">
+      <span>+31 6 11 34 61 19</span>
+      <span>&bull;</span>
+      <span>info@dspeeevents.nl</span>
+      <span>&bull;</span>
+      <span>Haaften &amp; omgeving</span>
+    </p>
+    <p class="copyright">&copy; 2026 Spee Events &amp; Experiences</p>
+  </footer>
+
+  <script>
+    var navLinks = document.getElementById('navLinks');
+    var pkgDropdown = document.getElementById('pkgDropdown');
+    var pkgToggle = document.getElementById('pkgToggle');
+
+    // houd --header-h gelijk aan de werkelijke hoogte van de header
+    var siteHeader = document.querySelector('header');
+    function syncHeaderHeight() {
+      document.documentElement.style.setProperty('--header-h', siteHeader.offsetHeight + 'px');
+    }
+    syncHeaderHeight();
+    window.addEventListener('resize', syncHeaderHeight);
+
+    document.querySelector('.nav-toggle').addEventListener('click', function () {
+      navLinks.classList.toggle('open');
+    });
+
+    // toggle the Package Deals dropdown
+    pkgToggle.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var isOpen = pkgDropdown.classList.toggle('open');
+      pkgToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    // close dropdown when clicking elsewhere
+    document.addEventListener('click', function (e) {
+      if (!pkgDropdown.contains(e.target)) {
+        pkgDropdown.classList.remove('open');
+        pkgToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // clicking any link closes the mobile menu + dropdown
+    document.querySelectorAll('#navLinks a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        navLinks.classList.remove('open');
+        pkgDropdown.classList.remove('open');
+        pkgToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  </script>
+
+</body>
+</html>
