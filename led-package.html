@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LED Package &middot; Spee Events &amp; Experiences</title>
+  <title>LED Experience &middot; Spee Events &amp; Experiences</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
@@ -111,11 +111,19 @@
       font-family: var(--font-display);
     }
 
-    /* reserves space for the logo/image you'll add later */
-    .brand-placeholder {
-      width: 120px;
-      height: 40px;
+    /* logo linksboven — klik = terug naar de homepage */
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      height: 52px;
+      transition: opacity 0.3s ease, transform 0.3s ease;
     }
+    .brand-logo img {
+      height: 100%;
+      width: auto;
+      display: block;
+    }
+    .brand-logo:hover { opacity: 0.85; transform: translateY(-1px); }
 
     .nav-links {
       display: flex;
@@ -868,8 +876,10 @@
 
   <header>
     <nav class="nav">
-      <!-- Logo/afbeelding komt hier later -->
-      <a href="index.html" class="brand-placeholder" aria-label="Naar de homepage"></a>
+      <!-- Logo linksboven: klik = terug naar de homepage -->
+      <a href="index.html" class="brand-logo" aria-label="Spee Events &amp; Experiences — naar de homepage">
+        <img src="images/DS%20logo.jpeg" alt="Spee Events &amp; Experiences">
+      </a>
       <button class="nav-toggle" aria-label="Menu">&#9776;</button>
       <ul class="nav-links" id="navLinks">
         <li class="dropdown" id="pkgDropdown">
@@ -879,8 +889,8 @@
           <ul class="dropdown-menu">
             <li><a href="sweet-package.html">Sweet Package</a></li>
             <li><a href="led-package.html" class="current" aria-current="page">LED Package</a></li>
-            <li><a href="index.html#yacht-package">Yacht Package</a></li>
-            <li><a href="index.html#experience-package">Experience Package</a></li>
+            <li><a href="yacht-package.html">Yacht Package</a></li>
+            <li><a href="experience-package.html">Experience Package</a></li>
           </ul>
         </li>
         <li><a href="index.html#branding-op-maat">Branding op maat</a></li>
@@ -894,7 +904,7 @@
     <!-- HERO -->
     <section class="page-hero">
       <p class="eyebrow">Beeld. Geluid. Impact.</p>
-      <h1 class="gold-text">LED Package</h1>
+      <h1 class="gold-text">LED Experience</h1>
       <p class="subtitle">Een groot LED-scherm met krachtig geluid</p>
 
       <div class="divider"><span>&#10070;</span></div>
@@ -1004,7 +1014,7 @@
           LED-scherm 5m x 2m, JBL Partybox 1000 en volledige opbouw en afbouw
           inbegrepen. De uiteindelijke prijs hangt af van uw locatie, duur en wensen.
         </p>
-        <a href="#boeken" class="cta filled" data-open-modal>Vraag uw LED Package aan</a>
+        <a href="#boeken" class="cta filled" data-open-modal>Vraag uw LED Experience aan</a>
       </div>
     </section>
 
@@ -1039,7 +1049,7 @@
     <section class="cta-banner" id="boeken">
       <p class="eyebrow">Klaar voor impact?</p>
       <h2 class="gold-text">Maak uw event onvergetelijk</h2>
-      <a href="#boeken" class="cta filled" data-open-modal>Vraag uw LED Package aan</a>
+      <a href="#boeken" class="cta filled" data-open-modal>Vraag uw LED Experience aan</a>
     </section>
 
   </main>
@@ -1051,7 +1061,7 @@
 
       <div id="bookFormWrap">
         <p class="eyebrow">Vraag vrijblijvend aan</p>
-        <h3 class="gold-text" id="bookModalTitle">LED Package</h3>
+        <h3 class="gold-text" id="bookModalTitle">LED Experience</h3>
         <p class="modal-sub">Laat uw gegevens achter, dan nemen wij snel contact met u op.</p>
 
         <!--
@@ -1061,8 +1071,8 @@
           3. Zet dat ID (het deel na /f/) in de action hieronder.
         -->
         <form id="bookForm" action="https://formspree.io/f/JOUW_FORM_ID" method="POST">
-          <input type="hidden" name="_subject" value="Nieuwe aanvraag: LED Package">
-          <input type="hidden" name="Pakket" value="LED Package">
+          <input type="hidden" name="_subject" value="Nieuwe aanvraag: LED Experience">
+          <input type="hidden" name="Pakket" value="LED Experience">
           <div class="form-hp">
             <label>Laat dit veld leeg <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label>
           </div>
