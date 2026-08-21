@@ -104,10 +104,19 @@
       font-family: var(--font-display);
     }
 
-    .brand-placeholder {
-      width: 120px;
-      height: 40px;
+    /* logo linksboven — klik = terug naar de homepage */
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      height: 52px;
+      transition: opacity 0.3s ease, transform 0.3s ease;
     }
+    .brand-logo img {
+      height: 100%;
+      width: auto;
+      display: block;
+    }
+    .brand-logo:hover { opacity: 0.85; transform: translateY(-1px); }
 
     .nav-links {
       display: flex;
@@ -1011,7 +1020,10 @@
 
   <header>
     <nav class="nav">
-      <a href="index.html" class="brand-placeholder" aria-label="Naar de homepage"></a>
+      <!-- Logo linksboven: klik = terug naar de homepage -->
+      <a href="index.html" class="brand-logo" aria-label="Spee Events &amp; Experiences — naar de homepage">
+        <img src="images/DS%20logo.jpeg" alt="Spee Events &amp; Experiences">
+      </a>
       <button class="nav-toggle" aria-label="Menu">&#9776;</button>
       <ul class="nav-links" id="navLinks">
         <li class="dropdown" id="pkgDropdown">
@@ -1020,9 +1032,9 @@
           </button>
           <ul class="dropdown-menu">
             <li><a href="sweet-package.html">Sweet Package</a></li>
-            <li><a href="index.html#led-package">LED Package</a></li>
+            <li><a href="led-package.html">LED Package</a></li>
             <li><a href="yacht-package.html" class="current" aria-current="page">Yacht Package</a></li>
-            <li><a href="index.html#experience-package">Experience Package</a></li>
+            <li><a href="experience-package.html">Experience Package</a></li>
           </ul>
         </li>
         <li><a href="index.html#branding-op-maat">Branding op maat</a></li>
