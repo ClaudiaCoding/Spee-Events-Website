@@ -111,11 +111,19 @@
       font-family: var(--font-display);
     }
 
-    /* reserves space for the logo/image you'll add later */
-    .brand-placeholder {
-      width: 120px;
-      height: 40px;
+    /* logo linksboven — klik = vloeiend terug naar boven / home */
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      height: 52px;
+      transition: opacity 0.3s ease, transform 0.3s ease;
     }
+    .brand-logo img {
+      height: 100%;
+      width: auto;
+      display: block;
+    }
+    .brand-logo:hover { opacity: 0.85; transform: translateY(-1px); }
 
     .nav-links {
       display: flex;
@@ -644,8 +652,10 @@
 
   <header>
     <nav class="nav">
-      <!-- Logo/afbeelding komt hier later -->
-      <div class="brand-placeholder"></div>
+      <!-- Logo linksboven: klik = terug naar boven op de homepage -->
+      <a href="index.html" class="brand-logo" id="brandLogo" aria-label="Spee Events &amp; Experiences — naar boven">
+        <img src="images/DS%20logo.jpeg" alt="Spee Events &amp; Experiences">
+      </a>
       <button class="nav-toggle" aria-label="Menu">&#9776;</button>
       <ul class="nav-links" id="navLinks">
         <li class="dropdown" id="pkgDropdown">
@@ -876,6 +886,18 @@
     document.querySelector('.nav-toggle').addEventListener('click', function () {
       navLinks.classList.toggle('open');
     });
+
+    // logo linksboven: op de homepage vloeiend naar boven i.p.v. herladen
+    var brandLogo = document.getElementById('brandLogo');
+    if (brandLogo) {
+      brandLogo.addEventListener('click', function (e) {
+        e.preventDefault();
+        navLinks.classList.remove('open');
+        pkgDropdown.classList.remove('open');
+        pkgToggle.setAttribute('aria-expanded', 'false');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
 
     // toggle the Package Deals dropdown
     pkgToggle.addEventListener('click', function (e) {
