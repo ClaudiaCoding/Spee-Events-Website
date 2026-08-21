@@ -111,7 +111,7 @@
       font-family: var(--font-display);
     }
 
-    /* logo linksboven — klik = vloeiend terug naar boven / home */
+    /* logo linksboven — klik = terug naar de homepage */
     .brand-logo {
       display: inline-flex;
       align-items: center;
@@ -941,6 +941,9 @@
     @media (max-width: 560px) {
       .sweets { grid-template-columns: 1fr; }
     }
+
+    /* Home-knop: alleen op desktop tonen, niet op mobiel */
+    @media (max-width: 780px) { .nav-home { display: none; } }
   </style>
 </head>
 <body>
@@ -953,6 +956,7 @@
       </a>
       <button class="nav-toggle" aria-label="Menu">&#9776;</button>
       <ul class="nav-links" id="navLinks">
+        <li class="nav-home"><a href="index.html">Home</a></li>
         <li class="dropdown" id="pkgDropdown">
           <button class="dropdown-toggle" id="pkgToggle" aria-expanded="false" aria-haspopup="true">
             Package Deals <span class="caret">&#9662;</span>
