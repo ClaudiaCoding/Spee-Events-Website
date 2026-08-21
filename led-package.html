@@ -13,7 +13,7 @@
       --font-display: 'Cinzel', serif;      /* koppen, navigatie, merknaam */
       --font-body: 'Cormorant Garamond', serif;
       --font-script: 'Great Vibes', cursive; /* sierlijke accenten */
-
+ 
       /* kleuren */
       --black: #0a0a0a;
       --black-rgb: 10, 10, 10;
@@ -22,25 +22,25 @@
       --gold-light: #f5d97a;
       --gold-deep: #b8860b;
       --gold-gradient: linear-gradient(135deg, #b8860b 0%, #f5d97a 35%, #d4af37 55%, #9c7a1f 100%);
-
+ 
       /* teksttinten */
       --text-muted: #cbb98f;
       --text-cream: #e6dcc0;
       --text-soft: #d8ceb2;
       --text-dim: #9a8c64;
       --text-faint: #7a6f52;
-
+ 
       /* panelen (dropdown e.d.) */
       --panel-bg: rgba(14, 14, 14, 0.98);
-
+ 
       /* actuele hoogte van de sticky header; wordt via JS bijgewerkt */
       --header-h: 74px;
     }
-
+ 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
+ 
     html { scroll-behavior: smooth; }
-
+ 
     body {
       background: var(--black);
       color: var(--text-muted);
@@ -50,7 +50,7 @@
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
-
+ 
     /* subtle gold vignette glow behind the hero */
     body::before {
       content: "";
@@ -64,9 +64,9 @@
       pointer-events: none;
       z-index: 0;
     }
-
+ 
     a { text-decoration: none; color: inherit; }
-
+ 
     .gold-text {
       background: var(--gold-gradient);
       -webkit-background-clip: text;
@@ -74,7 +74,7 @@
       -webkit-text-fill-color: transparent;
       color: var(--gold);
     }
-
+ 
     /* ---------- NAVIGATION ---------- */
     header {
       position: sticky;
@@ -85,7 +85,7 @@
       backdrop-filter: blur(10px);
       border-bottom: 1px solid rgba(var(--gold-rgb),0.18);
     }
-
+ 
     .nav {
       max-width: 1200px;
       margin: 0 auto;
@@ -94,7 +94,7 @@
       justify-content: space-between;
       padding: 20px 32px;
     }
-
+ 
     .brand {
       font-family: var(--font-display);
       font-weight: 600;
@@ -110,7 +110,7 @@
       margin-top: 4px;
       font-family: var(--font-display);
     }
-
+ 
     /* logo linksboven — klik = terug naar de homepage */
     .brand-logo {
       display: inline-flex;
@@ -124,7 +124,7 @@
       display: block;
     }
     .brand-logo:hover { opacity: 0.85; transform: translateY(-1px); }
-
+ 
     .nav-links {
       display: flex;
       gap: 30px;
@@ -150,7 +150,7 @@
     }
     .nav-links a:hover { color: var(--gold-light); }
     .nav-links a:hover::after { width: 100%; }
-
+ 
     .nav-toggle {
       display: none;
       background: none;
@@ -159,7 +159,7 @@
       font-size: 1.6rem;
       cursor: pointer;
     }
-
+ 
     /* ---- Boekingsknop ---- */
     .nav-links a.nav-cta {
       color: var(--black);
@@ -174,10 +174,10 @@
       filter: brightness(1.08);
       transform: translateY(-1px);
     }
-
+ 
     /* ---- Package Deals dropdown ---- */
     .dropdown { position: relative; }
-
+ 
     .dropdown-toggle {
       background: none;
       border: none;
@@ -200,13 +200,13 @@
     }
     .dropdown.open .dropdown-toggle { color: var(--gold-light); }
     .dropdown.open .dropdown-toggle .caret { transform: rotate(180deg); }
-
+ 
     /* markeer de huidige pagina in de dropdown */
     .dropdown-menu a.current {
       color: var(--gold-light);
       background: rgba(var(--gold-rgb),0.10);
     }
-
+ 
     .dropdown-menu {
       list-style: none;
       position: absolute;
@@ -259,7 +259,7 @@
       color: var(--gold-light);
       background: rgba(var(--gold-rgb),0.08);
     }
-
+ 
     /* ---------- HERO (subpagina) ---------- */
     .page-hero {
       position: relative;
@@ -271,7 +271,7 @@
       text-align: center;
       padding: 96px 24px 72px;
     }
-
+ 
     .page-hero .eyebrow {
       font-family: var(--font-script);
       font-size: 2rem;
@@ -279,7 +279,7 @@
       margin-bottom: 6px;
       opacity: 0.9;
     }
-
+ 
     .page-hero h1 {
       font-family: var(--font-display);
       font-weight: 500;
@@ -288,7 +288,7 @@
       line-height: 1.15;
       margin-bottom: 8px;
     }
-
+ 
     .page-hero .subtitle {
       font-family: var(--font-display);
       font-size: clamp(0.7rem, 1.6vw, 0.95rem);
@@ -297,7 +297,7 @@
       color: var(--text-muted);
       margin-bottom: 30px;
     }
-
+ 
     .divider {
       display: flex;
       align-items: center;
@@ -313,7 +313,7 @@
       background: linear-gradient(90deg, transparent, var(--gold-deep), transparent);
     }
     .divider span { color: var(--gold); font-size: 0.7rem; }
-
+ 
     .page-hero .mission {
       max-width: 680px;
       font-size: 1.28rem;
@@ -322,7 +322,7 @@
       color: var(--text-cream);
       margin-bottom: 36px;
     }
-
+ 
     /* kruimelpad */
     .breadcrumb {
       font-family: var(--font-display);
@@ -336,7 +336,7 @@
     .breadcrumb a:hover { color: var(--gold-light); }
     .breadcrumb span { margin: 0 10px; color: var(--gold-deep); }
     .breadcrumb .here { color: var(--gold-light); }
-
+ 
     .cta {
       display: inline-block;
       font-family: var(--font-display);
@@ -360,14 +360,14 @@
       border-color: transparent;
     }
     .cta.filled:hover { filter: brightness(1.08); transform: translateY(-1px); }
-
+ 
     /* hero-showcase afbeelding (placeholder) */
     .hero-showcase {
       width: 100%;
       max-width: 940px;
       margin: 8px auto 0;
     }
-
+ 
     /* ---------- FOTO-PLACEHOLDER ---------- */
     .img-ph {
       position: relative;
@@ -393,7 +393,7 @@
     }
     .img-ph .ph-label svg { width: 20px; height: 20px; color: var(--gold-deep); }
     .hero-showcase .img-ph { aspect-ratio: 16 / 7; }
-
+ 
     /* ---------- SECTIES ---------- */
     .section {
       position: relative;
@@ -423,7 +423,7 @@
       font-weight: 300;
       color: var(--text-soft);
     }
-
+ 
     /* ---------- WAT U KRIJGT / SPECS ---------- */
     .specs {
       display: grid;
@@ -431,7 +431,7 @@
       gap: 26px;
       text-align: left;
     }
-
+ 
     .spec-card {
       display: flex;
       flex-direction: column;
@@ -491,7 +491,7 @@
       text-transform: uppercase;
       color: var(--gold-light);
     }
-
+ 
     /* ---------- HOE HET WERKT ---------- */
     .how {
       border-top: 1px solid rgba(var(--gold-rgb),0.14);
@@ -536,7 +536,7 @@
       max-width: 260px;
       margin: 0 auto;
     }
-
+ 
     /* ---------- PRIJS / PAKKET ---------- */
     .price-box {
       max-width: 640px;
@@ -572,7 +572,7 @@
       max-width: 460px;
       margin: 0 auto 26px;
     }
-
+ 
     /* ---------- INBEGREPEN ---------- */
     .included-grid {
       display: grid;
@@ -610,7 +610,7 @@
       color: var(--text-dim);
       font-style: italic;
     }
-
+ 
     /* ---------- CTA-BANNER ---------- */
     .cta-banner {
       position: relative;
@@ -638,7 +638,7 @@
       letter-spacing: 0.14em;
       margin-bottom: 26px;
     }
-
+ 
     /* ---------- FOOTER ---------- */
     footer {
       position: relative;
@@ -664,7 +664,7 @@
       color: var(--text-faint);
       font-family: var(--font-display);
     }
-
+ 
     /* ---------- AANVRAAG-MODAL ---------- */
     .modal-overlay {
       position: fixed;
@@ -682,7 +682,7 @@
       transition: opacity 0.3s ease, visibility 0.3s;
     }
     .modal-overlay.open { opacity: 1; visibility: visible; }
-
+ 
     .modal {
       position: relative;
       width: 100%;
@@ -700,7 +700,7 @@
       box-shadow: 0 30px 70px rgba(0,0,0,0.6);
     }
     .modal-overlay.open .modal { transform: none; }
-
+ 
     .modal-close {
       position: absolute;
       top: 14px;
@@ -714,7 +714,7 @@
       transition: color 0.25s ease;
     }
     .modal-close:hover { color: var(--gold-light); }
-
+ 
     .modal .eyebrow {
       font-family: var(--font-script);
       font-size: 1.7rem;
@@ -737,7 +737,7 @@
       color: var(--text-soft);
       margin-bottom: 26px;
     }
-
+ 
     .form-field { margin-bottom: 16px; text-align: left; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .form-field label {
@@ -770,14 +770,14 @@
     .form-field textarea { resize: vertical; min-height: 92px; }
     .form-field input::placeholder,
     .form-field textarea::placeholder { color: var(--text-faint); }
-
+ 
     .modal .cta.filled {
       width: 100%;
       text-align: center;
       margin-top: 8px;
       border: none;
     }
-
+ 
     .form-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
     .form-status {
       margin-top: 14px;
@@ -787,7 +787,7 @@
       min-height: 1.2em;
     }
     .form-status.error { color: #e0a3a3; }
-
+ 
     .modal-success { text-align: center; padding: 14px 0 6px; }
     .modal-success .check {
       width: 56px;
@@ -802,9 +802,9 @@
     .modal-success .check svg { width: 28px; height: 28px; color: var(--gold-light); }
     .modal-success h3 { margin-bottom: 10px; }
     .modal-success p { font-weight: 300; color: var(--text-soft); }
-
+ 
     .hidden { display: none !important; }
-
+ 
     /* ---------- RESPONSIVE ---------- */
     @media (max-width: 980px) {
       .specs { grid-template-columns: 1fr; }
@@ -812,7 +812,7 @@
       .included-grid { grid-template-columns: 1fr; }
       .included-grid .img-ph { min-height: 240px; }
     }
-
+ 
     @media (max-width: 780px) {
       .nav-toggle { display: block; }
       .nav-links {
@@ -839,7 +839,7 @@
         padding: 18px 0;
         border-top: 1px solid rgba(var(--gold-rgb),0.10);
       }
-
+ 
       .dropdown-menu {
         position: static;
         transform: none;
@@ -865,15 +865,18 @@
         padding: 15px 0;
       }
     }
-
+ 
     @media (max-width: 620px) {
       .form-row { grid-template-columns: 1fr; gap: 0; }
       .modal { padding: 38px 24px 30px; }
     }
+ 
+    /* Home-knop: alleen op desktop tonen, niet op mobiel */
+    @media (max-width: 780px) { .nav-home { display: none; } }
   </style>
 </head>
 <body>
-
+ 
   <header>
     <nav class="nav">
       <!-- Logo linksboven: klik = terug naar de homepage -->
@@ -882,6 +885,7 @@
       </a>
       <button class="nav-toggle" aria-label="Menu">&#9776;</button>
       <ul class="nav-links" id="navLinks">
+        <li class="nav-home"><a href="index.html">Home</a></li>
         <li class="dropdown" id="pkgDropdown">
           <button class="dropdown-toggle" id="pkgToggle" aria-expanded="false" aria-haspopup="true">
             Package Deals <span class="caret">&#9662;</span>
@@ -898,26 +902,26 @@
       </ul>
     </nav>
   </header>
-
+ 
   <main>
-
+ 
     <!-- HERO -->
     <section class="page-hero">
       <p class="eyebrow">Beeld. Geluid. Impact.</p>
       <h1 class="gold-text">LED Experience</h1>
       <p class="subtitle">Een groot LED-scherm met krachtig geluid</p>
-
+ 
       <div class="divider"><span>&#10070;</span></div>
-
+ 
       <p class="mission">
         Een indrukwekkend LED-scherm van 5 bij 2 meter, inclusief de krachtige
         JBL Partybox 1000, dat elk event naar een hoger niveau tilt. Perfect voor
         beelden, video's, sfeerloops of uw eigen boodschap, compleet met opbouw en
         afbouw door ons verzorgd.
       </p>
-
+ 
       <a href="#pakket" class="cta">Bekijk het pakket</a>
-
+ 
       <div class="hero-showcase">
         <div class="img-ph">
           <span class="ph-label">
@@ -927,7 +931,7 @@
         </div>
       </div>
     </section>
-
+ 
     <!-- WAT U KRIJGT -->
     <section class="section" id="pakket">
       <h2 class="gold-text">Wat u krijgt</h2>
@@ -936,9 +940,9 @@
         Een compleet pakket, van scherm tot geluid tot montage. U hoeft zich nergens
         zorgen over te maken, wij regelen het van begin tot eind.
       </p>
-
+ 
       <div class="specs" style="margin-top:46px;">
-
+ 
         <!-- LED scherm -->
         <div class="spec-card">
           <div class="body">
@@ -950,7 +954,7 @@
             <span class="spec-tag">Modulair &middot; ook kleiner mogelijk</span>
           </div>
         </div>
-
+ 
         <!-- Geluid -->
         <div class="spec-card">
           <div class="body">
@@ -962,7 +966,7 @@
             <span class="spec-tag">Inclusief</span>
           </div>
         </div>
-
+ 
         <!-- Opbouw & afbouw -->
         <div class="spec-card">
           <div class="body">
@@ -974,15 +978,15 @@
             <span class="spec-tag">Inclusief</span>
           </div>
         </div>
-
+ 
       </div>
     </section>
-
+ 
     <!-- HOE HET WERKT -->
     <section class="section how" id="hoe-het-werkt">
       <h2 class="gold-text">Hoe het werkt</h2>
       <p class="script-accent">Van aanvraag tot showtime</p>
-
+ 
       <div class="steps">
         <div class="step">
           <span class="num">1</span>
@@ -1001,12 +1005,12 @@
         </div>
       </div>
     </section>
-
+ 
     <!-- PRIJS -->
     <section class="section" id="prijs">
       <h2 class="gold-text">Het LED-pakket</h2>
       <p class="script-accent">Perfect voor elk event</p>
-
+ 
       <div class="price-box">
         <span class="price-from">Vanaf</span>
         <div class="price-amount gold-text">&euro;600</div>
@@ -1017,18 +1021,18 @@
         <a href="#boeken" class="cta filled" data-open-modal>Vraag uw LED Experience aan</a>
       </div>
     </section>
-
+ 
     <!-- INBEGREPEN -->
     <section class="section" id="inbegrepen">
       <h2 class="gold-text">Perfect voor elk event</h2>
       <p class="script-accent">Feesten, bruiloften en bedrijfsevents</p>
-
+ 
       <div class="included-grid">
         <div class="img-ph"><span class="ph-label">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
           Sfeerfoto event met LED-scherm
         </span></div>
-
+ 
         <div>
           <ul class="included-list">
             <li>Groot LED-scherm van 5 bij 2 meter, helder en scherp</li>
@@ -1044,26 +1048,26 @@
         </div>
       </div>
     </section>
-
+ 
     <!-- CTA -->
     <section class="cta-banner" id="boeken">
       <p class="eyebrow">Klaar voor impact?</p>
       <h2 class="gold-text">Maak uw event onvergetelijk</h2>
       <a href="#boeken" class="cta filled" data-open-modal>Vraag uw LED Experience aan</a>
     </section>
-
+ 
   </main>
-
+ 
   <!-- AANVRAAG-MODAL -->
   <div class="modal-overlay" id="bookModal" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="bookModalTitle">
       <button class="modal-close" id="bookModalClose" aria-label="Sluiten">&times;</button>
-
+ 
       <div id="bookFormWrap">
         <p class="eyebrow">Vraag vrijblijvend aan</p>
         <h3 class="gold-text" id="bookModalTitle">LED Experience</h3>
         <p class="modal-sub">Laat uw gegevens achter, dan nemen wij snel contact met u op.</p>
-
+ 
         <!--
           FORMSPREE: vervang JOUW_FORM_ID hieronder door uw eigen formulier-ID.
           1. Maak gratis een account op formspree.io
@@ -1076,7 +1080,7 @@
           <div class="form-hp">
             <label>Laat dit veld leeg <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label>
           </div>
-
+ 
           <div class="form-row">
             <div class="form-field">
               <label for="bf-name">Naam</label>
@@ -1087,12 +1091,12 @@
               <input id="bf-phone" name="Telefoon" type="tel" placeholder="Optioneel">
             </div>
           </div>
-
+ 
           <div class="form-field">
             <label for="bf-email">E-mail</label>
             <input id="bf-email" name="E-mail" type="email" required placeholder="naam@voorbeeld.nl">
           </div>
-
+ 
           <div class="form-row">
             <div class="form-field">
               <label for="bf-date">Datum van uw event</label>
@@ -1103,17 +1107,17 @@
               <input id="bf-location" name="Plaats" type="text" placeholder="Bijv. Haaften">
             </div>
           </div>
-
+ 
           <div class="form-field">
             <label for="bf-msg">Uw wensen</label>
             <textarea id="bf-msg" name="Wensen" placeholder="Vertel ons over uw event, de locatie en wat u op het scherm wilt tonen."></textarea>
           </div>
-
+ 
           <button type="submit" class="cta filled">Verstuur aanvraag</button>
           <p class="form-status" id="bookFormStatus"></p>
         </form>
       </div>
-
+ 
       <div class="modal-success hidden" id="bookSuccess">
         <span class="check">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
@@ -1123,7 +1127,7 @@
       </div>
     </div>
   </div>
-
+ 
   <footer>
     <a href="index.html" class="brand gold-text">DS SPEE<small>Events &amp; Experiences</small></a>
     <p class="contact">
@@ -1135,12 +1139,12 @@
     </p>
     <p class="copyright">&copy; 2026 Spee Events &amp; Experiences</p>
   </footer>
-
+ 
   <script>
     var navLinks = document.getElementById('navLinks');
     var pkgDropdown = document.getElementById('pkgDropdown');
     var pkgToggle = document.getElementById('pkgToggle');
-
+ 
     // houd --header-h gelijk aan de werkelijke hoogte van de header
     var siteHeader = document.querySelector('header');
     function syncHeaderHeight() {
@@ -1148,18 +1152,18 @@
     }
     syncHeaderHeight();
     window.addEventListener('resize', syncHeaderHeight);
-
+ 
     document.querySelector('.nav-toggle').addEventListener('click', function () {
       navLinks.classList.toggle('open');
     });
-
+ 
     // toggle the Package Deals dropdown
     pkgToggle.addEventListener('click', function (e) {
       e.stopPropagation();
       var isOpen = pkgDropdown.classList.toggle('open');
       pkgToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
-
+ 
     // close dropdown when clicking elsewhere
     document.addEventListener('click', function (e) {
       if (!pkgDropdown.contains(e.target)) {
@@ -1167,7 +1171,7 @@
         pkgToggle.setAttribute('aria-expanded', 'false');
       }
     });
-
+ 
     // clicking any link closes the mobile menu + dropdown
     document.querySelectorAll('#navLinks a').forEach(function (link) {
       link.addEventListener('click', function () {
@@ -1176,14 +1180,14 @@
         pkgToggle.setAttribute('aria-expanded', 'false');
       });
     });
-
+ 
     // ---------- AANVRAAG-MODAL ----------
     var bookModal = document.getElementById('bookModal');
     var bookForm = document.getElementById('bookForm');
     var bookStatus = document.getElementById('bookFormStatus');
     var bookFormWrap = document.getElementById('bookFormWrap');
     var bookSuccess = document.getElementById('bookSuccess');
-
+ 
     function openModal(e) {
       if (e) e.preventDefault();
       // sluit eventueel open mobiel menu
@@ -1196,7 +1200,7 @@
       var first = document.getElementById('bf-name');
       if (first) setTimeout(function () { first.focus(); }, 60);
     }
-
+ 
     function closeModal() {
       bookModal.classList.remove('open');
       bookModal.setAttribute('aria-hidden', 'true');
@@ -1210,7 +1214,7 @@
         bookStatus.className = 'form-status';
       }, 320);
     }
-
+ 
     document.querySelectorAll('[data-open-modal]').forEach(function (btn) {
       btn.addEventListener('click', openModal);
     });
@@ -1221,25 +1225,25 @@
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && bookModal.classList.contains('open')) closeModal();
     });
-
+ 
     // versturen via Formspree (blijft in de modal, toont bevestiging)
     bookForm.addEventListener('submit', function (e) {
       e.preventDefault();
       bookStatus.textContent = '';
       bookStatus.className = 'form-status';
-
+ 
       var action = bookForm.getAttribute('action');
       if (action.indexOf('JOUW_FORM_ID') !== -1) {
         bookStatus.textContent = 'Formulier nog niet gekoppeld: vul uw Formspree-ID in de code in.';
         bookStatus.classList.add('error');
         return;
       }
-
+ 
       var btn = bookForm.querySelector('button[type="submit"]');
       var origText = btn.textContent;
       btn.disabled = true;
       btn.textContent = 'Versturen...';
-
+ 
       fetch(action, {
         method: 'POST',
         body: new FormData(bookForm),
@@ -1266,6 +1270,6 @@
       });
     });
   </script>
-
+ 
 </body>
 </html>
