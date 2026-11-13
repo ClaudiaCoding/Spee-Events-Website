@@ -1029,13 +1029,43 @@
     @media (min-width: 781px) {
       .nav {
         display: grid;
-        grid-template-columns: 1fr auto auto auto 1fr;
+        /* logo | Home | Sweet | LED | Experience | Boek nu */
+        grid-template-columns: 1fr repeat(4, auto) 1fr;
         align-items: center;
-        column-gap: clamp(22px, 3.2vw, 46px);
+        column-gap: clamp(16px, 2.6vw, 40px);
       }
       .nav-links { display: contents; }
       .brand-logo { justify-self: start; }
       .nav-links > li:last-child { justify-self: end; }
+      /* alle menu-items op exact dezelfde hoogte */
+      .nav-links li:not(.dropdown) { display: flex; align-items: center; }
+
+      /* op de computer: geen uitklapmenu, de 3 pakketten staan direct in de balk */
+      .dropdown,
+      .dropdown-menu { display: contents; }
+      .dropdown-toggle,
+      .dropdown-menu::before { display: none; }
+      .dropdown-menu { visibility: visible; }
+      .dropdown-menu li { width: auto; }
+      .dropdown-menu a {
+        padding: 4px 0;
+        font-size: 0.72rem;
+        letter-spacing: 0.18em;
+        background: none;
+      }
+      .dropdown-menu a:hover { background: none; }
+      .dropdown-menu a::after { display: block; }
+      /* huidige pagina: goud met streepje eronder */
+      .dropdown-menu a.current { background: none; color: var(--gold-light); }
+      .dropdown-menu a.current::after { width: 100%; }
+    }
+
+    /* smallere computerschermen: iets compacter zodat alles op één regel past */
+    @media (min-width: 781px) and (max-width: 1080px) {
+      .nav { padding: 20px 24px; }
+      .nav-links a,
+      .dropdown-menu a { font-size: 0.66rem; letter-spacing: 0.12em; }
+      .nav-links a.nav-cta { padding: 10px 18px; }
     }
 
     /* Home-knop: alleen op desktop tonen, niet op mobiel */
@@ -1063,7 +1093,6 @@
             <li><a href="experience-package.html">Experience Package</a></li>
           </ul>
         </li>
-        <li><a href="index.html#branding-op-maat">Branding op maat</a></li>
         <li><a href="#boeken" class="nav-cta" data-open-modal>Boek nu</a></li>
       </ul>
     </nav>
