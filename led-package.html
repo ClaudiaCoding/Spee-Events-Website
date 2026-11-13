@@ -1271,7 +1271,7 @@
       if (e.key === 'Escape' && bookModal.classList.contains('open')) closeModal();
     });
 
-    // versturen via Formspree (blijft in de modal, toont bevestiging)
+    // versturen via Formspree; na succes door naar de bedankpagina
     bookForm.addEventListener('submit', function (e) {
       e.preventDefault();
       bookStatus.textContent = '';
@@ -1295,8 +1295,8 @@
         headers: { 'Accept': 'application/json' }
       }).then(function (res) {
         if (res.ok) {
-          bookFormWrap.classList.add('hidden');
-          bookSuccess.classList.remove('hidden');
+          var pakket = bookForm.querySelector('[name="Pakket"]').value;
+          window.location.href = 'bedankt.html?pakket=' + encodeURIComponent(pakket);
         } else {
           return res.json().then(function (data) {
             var msg = (data && data.errors)
