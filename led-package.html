@@ -361,20 +361,50 @@
     }
     .cta.filled:hover { filter: brightness(1.08); transform: translateY(-1px); }
 
-    /* hero-showcase afbeelding */
-    .hero-showcase {
-      width: 100%;
-      max-width: 940px;
-      margin: 8px auto 0;
+    /* ---------- HERO MET STAANDE FOTO ---------- */
+    /* tekst links, foto rechts; de foto behoudt haar eigen verhouding en wordt niet bijgesneden */
+    .page-hero.split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      align-items: center;
+      gap: clamp(48px, 6vw, 88px);
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 80px 40px 96px;
     }
-    .hero-showcase img {
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .page-hero.split h1 { font-size: clamp(2.3rem, 4.6vw, 3.9rem); }
+
+    .hero-photo {
+      position: relative;
+      justify-self: center;
       width: 100%;
-      aspect-ratio: 16 / 7;
-      object-fit: cover;
-      border-radius: 16px;
+      max-width: 430px;
+    }
+    /* gouden lijst, iets verschoven achter de foto */
+    .hero-photo::before {
+      content: "";
+      position: absolute;
+      inset: 18px -18px -18px 18px;
+      border: 1px solid rgba(var(--gold-rgb),0.45);
+      border-radius: 20px;
+      pointer-events: none;
+    }
+    .hero-photo img {
+      position: relative;
       display: block;
-      border: 1px solid rgba(var(--gold-rgb),0.25);
-      box-shadow: 0 24px 60px rgba(0,0,0,0.45);
+      width: 100%;
+      height: auto;
+      max-height: min(640px, calc(100vh - var(--header-h) - 120px));
+      object-fit: cover;
+      border-radius: 18px;
+      border: 1px solid rgba(var(--gold-rgb),0.35);
+      box-shadow: 0 30px 70px rgba(0,0,0,0.55);
     }
 
     /* ---------- FOTO-PLACEHOLDER ---------- */
@@ -401,7 +431,6 @@
       gap: 10px;
     }
     .img-ph .ph-label svg { width: 20px; height: 20px; color: var(--gold-deep); }
-    .hero-showcase .img-ph { aspect-ratio: 16 / 7; }
 
     /* ---------- SECTIES ---------- */
     .section {
@@ -591,15 +620,20 @@
       text-align: left;
       margin-top: 20px;
     }
-    .included-grid .img-ph { aspect-ratio: 5 / 4; height: 100%; min-height: 300px; }
-    .included-grid img {
-      width: 100%;
-      aspect-ratio: 5 / 4;
-      object-fit: cover;
-      border-radius: 16px;
+    /* sfeerfoto naast de lijst: eigen verhouding, niets bijgesneden, nooit hoger dan 460px */
+    .included-photo {
+      display: flex;
+      justify-content: center;
+    }
+    .included-photo img {
       display: block;
-      border: 1px solid rgba(var(--gold-rgb),0.25);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 460px;
+      border-radius: 18px;
+      border: 1px solid rgba(var(--gold-rgb),0.35);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
     }
     .included-list {
       list-style: none;
@@ -828,7 +862,17 @@
       .specs { grid-template-columns: 1fr; }
       .steps { grid-template-columns: 1fr; gap: 46px; }
       .included-grid { grid-template-columns: 1fr; }
-      .included-grid .img-ph { min-height: 240px; }
+      .included-photo img { max-height: 440px; }
+    }
+
+    /* staande hero stapelt: tekst boven, foto eronder */
+    @media (max-width: 900px) {
+      .page-hero.split {
+        grid-template-columns: 1fr;
+        gap: 52px;
+        padding: 64px 24px 80px;
+      }
+      .hero-photo { max-width: 380px; left: -9px; }
     }
 
     @media (max-width: 780px) {
@@ -887,9 +931,11 @@
     @media (max-width: 620px) {
       .form-row { grid-template-columns: 1fr; gap: 0; }
       .modal { padding: 38px 24px 30px; }
-      /* op telefoon krijgen de foto's een wat hogere uitsnede zodat ze niet als smalle strook ogen */
-      .hero-showcase img { aspect-ratio: 4 / 3; }
-      .included-grid img { aspect-ratio: 4 / 3; }
+    }
+
+    @media (max-width: 560px) {
+      .hero-photo { max-width: calc(100% - 24px); left: -6px; }
+      .hero-photo::before { inset: 12px -12px -12px 12px; }
     }
 
     /* Desktop: logo links, Boek nu rechts, menu-items precies in het midden */
@@ -968,25 +1014,27 @@
   <main>
 
     <!-- HERO -->
-    <section class="page-hero">
-      <p class="eyebrow">Beeld. Geluid. Impact.</p>
-      <h1 class="gold-text">LED Experience</h1>
-      <p class="subtitle">Een groot LED-scherm met krachtig geluid</p>
+    <section class="page-hero split">
+      <div class="hero-text">
+        <p class="eyebrow">Beeld. Geluid. Impact.</p>
+        <h1 class="gold-text">LED Experience</h1>
+        <p class="subtitle">Een groot LED-scherm met krachtig geluid</p>
 
-      <div class="divider"><span>&#10070;</span></div>
+        <div class="divider"><span>&#10070;</span></div>
 
-      <p class="mission">
-        Een indrukwekkend LED-scherm van 5 bij 2 meter, inclusief de krachtige
-        JBL Partybox 1000, dat elk event naar een hoger niveau tilt. Perfect voor
-        beelden, video's, sfeerloops of uw eigen boodschap, compleet met opbouw en
-        afbouw door ons verzorgd.
-      </p>
+        <p class="mission">
+          Een indrukwekkend LED-scherm van 5 bij 2 meter, inclusief de krachtige
+          JBL Partybox 1000, dat elk event naar een hoger niveau tilt. Perfect voor
+          beelden, video's, sfeerloops of uw eigen boodschap, compleet met opbouw en
+          afbouw door ons verzorgd.
+        </p>
 
-      <a href="#pakket" class="cta">Bekijk het pakket</a>
-
-      <div class="hero-showcase">
-        <img src="images/led%20scherm.jpeg" alt="LED-scherm van 5 bij 2 meter op locatie">
+        <a href="#pakket" class="cta">Bekijk het pakket</a>
       </div>
+
+      <figure class="hero-photo">
+        <img src="images/led%20scherm.jpeg" alt="LED-scherm van 5 bij 2 meter op locatie">
+      </figure>
     </section>
 
     <!-- WAT U KRIJGT -->
@@ -1085,7 +1133,9 @@
       <p class="script-accent">Feesten, bruiloften en bedrijfsevents</p>
 
       <div class="included-grid">
-        <img src="images/LED%20sfeerfoto.jpg" alt="Sfeerfoto van een event met LED-scherm">
+        <figure class="included-photo">
+          <img src="images/LED%20sfeerfoto.jpg" alt="Sfeerfoto van een event met LED-scherm" loading="lazy">
+        </figure>
 
         <div>
           <ul class="included-list">
