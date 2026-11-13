@@ -361,11 +361,50 @@
     }
     .cta.filled:hover { filter: brightness(1.08); transform: translateY(-1px); }
 
-    /* hero-showcase afbeelding (placeholder) */
-    .hero-showcase {
+    /* ---------- HERO MET STAANDE SFEERFOTO ---------- */
+    /* tekst links, foto rechts; de foto bepaalt zelf haar verhouding */
+    .page-hero.split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      align-items: center;
+      gap: clamp(48px, 6vw, 88px);
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 80px 40px 96px;
+    }
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .page-hero.split h1 { font-size: clamp(2.3rem, 4.6vw, 3.9rem); }
+
+    .hero-photo {
+      position: relative;
+      justify-self: center;
       width: 100%;
-      max-width: 940px;
-      margin: 8px auto 0;
+      max-width: 430px;
+    }
+    /* gouden lijst, iets verschoven achter de foto */
+    .hero-photo::before {
+      content: "";
+      position: absolute;
+      inset: 18px -18px -18px 18px;
+      border: 1px solid rgba(var(--gold-rgb),0.45);
+      border-radius: 20px;
+      pointer-events: none;
+    }
+    .hero-photo img {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: min(640px, calc(100vh - var(--header-h) - 120px));
+      object-fit: cover;
+      border-radius: 18px;
+      border: 1px solid rgba(var(--gold-rgb),0.35);
+      box-shadow: 0 30px 70px rgba(0,0,0,0.55);
     }
 
     /* ---------- FOTO-PLACEHOLDER ---------- */
@@ -392,7 +431,6 @@
       gap: 10px;
     }
     .img-ph .ph-label svg { width: 20px; height: 20px; color: var(--gold-deep); }
-    .hero-showcase .img-ph { aspect-ratio: 16 / 7; }
 
     /* ---------- SECTIES ---------- */
     .section {
@@ -452,6 +490,22 @@
       border-radius: 0;
       aspect-ratio: 4 / 3;
     }
+    /* echte foto op de kaart: vaste 4:3 uitsnede, zodat alle kaarten even hoog blijven */
+    .sweet-card .card-photo {
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(var(--gold-rgb),0.28);
+    }
+    .sweet-card .card-photo img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.6s ease;
+    }
+    .sweet-card:hover .card-photo img { transform: scale(1.04); }
+
     .sweet-card .body {
       display: flex;
       flex-direction: column;
@@ -559,7 +613,21 @@
       text-align: left;
       margin-top: 20px;
     }
-    .included-grid .img-ph { aspect-ratio: 5 / 4; height: 100%; min-height: 300px; }
+    /* sfeerfoto naast de lijst: eigen verhouding, niets bijgesneden, nooit hoger dan 460px */
+    .included-photo {
+      display: flex;
+      justify-content: center;
+    }
+    .included-photo img {
+      display: block;
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 460px;
+      border-radius: 18px;
+      border: 1px solid rgba(var(--gold-rgb),0.35);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+    }
     .included-list {
       list-style: none;
     }
@@ -873,11 +941,26 @@
     .hidden { display: none !important; }
 
     /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 900px) {
+      .page-hero.split {
+        grid-template-columns: 1fr;
+        gap: 52px;
+        padding: 64px 24px 80px;
+      }
+      /* iets naar links, zodat foto + verschoven lijst samen in het midden staan */
+      .hero-photo { max-width: 380px; left: -9px; }
+    }
+
+    @media (max-width: 560px) {
+      .hero-photo { max-width: calc(100% - 24px); left: -6px; }
+      .hero-photo::before { inset: 12px -12px -12px 12px; }
+    }
+
     @media (max-width: 980px) {
       .sweets { grid-template-columns: repeat(2, 1fr); }
       .steps { grid-template-columns: 1fr; gap: 46px; }
       .included-grid { grid-template-columns: 1fr; }
-      .included-grid .img-ph { min-height: 240px; }
+      .included-photo img { max-height: 440px; }
     }
 
     @media (max-width: 780px) {
@@ -942,6 +1025,19 @@
       .sweets { grid-template-columns: 1fr; }
     }
 
+    /* Desktop: logo links, Boek nu rechts, menu-items precies in het midden */
+    @media (min-width: 781px) {
+      .nav {
+        display: grid;
+        grid-template-columns: 1fr auto auto auto 1fr;
+        align-items: center;
+        column-gap: clamp(22px, 3.2vw, 46px);
+      }
+      .nav-links { display: contents; }
+      .brand-logo { justify-self: start; }
+      .nav-links > li:last-child { justify-self: end; }
+    }
+
     /* Home-knop: alleen op desktop tonen, niet op mobiel */
     @media (max-width: 780px) { .nav-home { display: none; } }
   </style>
@@ -976,29 +1072,26 @@
   <main>
 
     <!-- HERO -->
-    <section class="page-hero">
-      <p class="eyebrow">Zoet in elk detail</p>
-      <h1 class="gold-text">Sweet Package</h1>
-      <p class="subtitle">Ambachtelijk zoet, op maat gemaakt</p>
+    <section class="page-hero split">
+      <div class="hero-text">
+        <p class="eyebrow">Zoet in elk detail</p>
+        <h1 class="gold-text">Sweet Package</h1>
+        <p class="subtitle">Ambachtelijk zoet, op maat gemaakt</p>
 
-      <div class="divider"><span>&#10070;</span></div>
+        <div class="divider"><span>&#10070;</span></div>
 
-      <p class="mission">
-        Van sierlijke cupcakes en taarten tot een volledig gestylede sweet table,
-        wij maken het zoete hoogtepunt van uw event. Alles vers, leuke prints
-        mogelijk, met de hand afgewerkt en volledig afgestemd op uw kleuren en thema.
-      </p>
+        <p class="mission">
+          Van sierlijke cupcakes en taarten tot een volledig gestylede sweet table,
+          wij maken het zoete hoogtepunt van uw event. Alles vers, leuke prints
+          mogelijk, met de hand afgewerkt en volledig afgestemd op uw kleuren en thema.
+        </p>
 
-      <a href="#assortiment" class="cta">Bekijk het assortiment</a>
-
-      <div class="hero-showcase">
-        <div class="img-ph">
-          <span class="ph-label">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-            Sfeerfoto sweet table
-          </span>
-        </div>
+        <a href="#assortiment" class="cta">Bekijk het assortiment</a>
       </div>
+
+      <figure class="hero-photo">
+        <img src="images/bride%20to%20be.jpeg" alt="Zoete creaties van Spee voor een bride to be-viering">
+      </figure>
     </section>
 
     <!-- ASSORTIMENT -->
@@ -1014,7 +1107,7 @@
 
         <!-- Cupcakes -->
         <div class="sweet-card">
-          <div class="img-ph"><span class="ph-label">Foto cupcakes</span></div>
+          <div class="card-photo"><img src="images/cupcakes.jpeg" alt="Cupcakes van Spee, afgewerkt in thema" loading="lazy"></div>
           <div class="body">
             <h3>Cupcakes</h3>
             <p>Luchtige cupcakes met een sierlijke toef, afgewerkt in uw kleuren. Diverse smaken mogelijk.</p>
@@ -1031,7 +1124,7 @@
 
         <!-- Taarten op maat -->
         <div class="sweet-card">
-          <div class="img-ph"><span class="ph-label">Foto taart</span></div>
+          <div class="card-photo"><img src="images/kpop%20taart.jpeg" alt="Taart op maat met K-pop thema" loading="lazy"></div>
           <div class="body">
             <h3>Taarten op maat</h3>
             <p>Een taart als middelpunt van uw viering, ontworpen rond uw thema, smaak en aantal gasten.</p>
@@ -1048,7 +1141,7 @@
 
         <!-- Macarons -->
         <div class="sweet-card">
-          <div class="img-ph"><span class="ph-label">Foto macarons</span></div>
+          <div class="card-photo"><img src="images/macarons.jpg" alt="Franse macarons in een palet naar keuze" loading="lazy"></div>
           <div class="body">
             <h3>Macarons</h3>
             <p>Fijne Franse macarons in een palet naar keuze, elegant en perfect voor bij de koffie of als bedankje.</p>
@@ -1065,7 +1158,7 @@
 
         <!-- Cakepops -->
         <div class="sweet-card">
-          <div class="img-ph"><span class="ph-label">Foto cake bonbons</span></div>
+          <div class="card-photo"><img src="images/cake%20pops.jpg" alt="Cake bonbons met een glanzende laag" loading="lazy"></div>
           <div class="body">
             <h3>Cake bonbons</h3>
             <p>Speelse hapklare cake bonbons met een glanzende laag, ideaal als vrolijk accent op uw sweet table.</p>
@@ -1082,7 +1175,7 @@
 
         <!-- Sweet table -->
         <div class="sweet-card">
-          <div class="img-ph"><span class="ph-label">Foto sweet table</span></div>
+          <div class="card-photo"><img src="images/sweet%20table.jpg" alt="Gestylede sweet table vol zoete lekkernijen" loading="lazy"></div>
           <div class="body">
             <h3>Sweet table</h3>
             <p>Een volledig gestylede tafel vol zoete lekkernijen, samengesteld en aangekleed in uw stijl en thema.</p>
@@ -1099,7 +1192,7 @@
 
         <!-- Bedankjes -->
         <div class="sweet-card">
-          <div class="img-ph"><span class="ph-label">Foto bedankjes</span></div>
+          <div class="card-photo"><img src="images/koekjes.jpeg" alt="Versierde koekjes als zoete bedankjes" loading="lazy"></div>
           <div class="body">
             <h3>Zoete bedankjes</h3>
             <p>Persoonlijke traktaties om uit te delen, verpakt en voorzien van een label op maat voor uw gasten.</p>
@@ -1147,10 +1240,9 @@
       <p class="script-accent">Tot in de puntjes verzorgd</p>
 
       <div class="included-grid">
-        <div class="img-ph"><span class="ph-label">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-          Sfeerfoto lekkernijen
-        </span></div>
+        <figure class="included-photo">
+          <img src="images/grote%20taart.jpeg" alt="Grote taart op maat van Spee" loading="lazy">
+        </figure>
 
         <div>
           <ul class="included-list">
@@ -1225,13 +1317,15 @@
           <div class="form-field">
             <span class="field-label">Waar heeft u interesse in?</span>
             <div class="checks">
-              <label class="check-item"><input type="checkbox" name="Interesse" value="Cupcakes"><span>Cupcakes</span></label>
-              <label class="check-item"><input type="checkbox" name="Interesse" value="Taarten op maat"><span>Taarten op maat</span></label>
-              <label class="check-item"><input type="checkbox" name="Interesse" value="Macarons"><span>Macarons</span></label>
-              <label class="check-item"><input type="checkbox" name="Interesse" value="Cake bonbons"><span>Cake bonbons</span></label>
-              <label class="check-item"><input type="checkbox" name="Interesse" value="Sweet table"><span>Sweet table</span></label>
-              <label class="check-item"><input type="checkbox" name="Interesse" value="Zoete bedankjes"><span>Zoete bedankjes</span></label>
+              <label class="check-item"><input type="checkbox" class="interest-check" value="Cupcakes"><span>Cupcakes</span></label>
+              <label class="check-item"><input type="checkbox" class="interest-check" value="Taarten op maat"><span>Taarten op maat</span></label>
+              <label class="check-item"><input type="checkbox" class="interest-check" value="Macarons"><span>Macarons</span></label>
+              <label class="check-item"><input type="checkbox" class="interest-check" value="Cake bonbons"><span>Cake bonbons</span></label>
+              <label class="check-item"><input type="checkbox" class="interest-check" value="Sweet table"><span>Sweet table</span></label>
+              <label class="check-item"><input type="checkbox" class="interest-check" value="Zoete bedankjes"><span>Zoete bedankjes</span></label>
             </div>
+            <!-- alle aangevinkte keuzes worden bij versturen samengevoegd in dit ene veld -->
+            <input type="hidden" name="Interesse" id="bf-interest" value="">
           </div>
 
           <div class="form-field">
@@ -1320,7 +1414,7 @@
       // (voor)selecteer de aangevraagde sweet, indien via een kaartknop geopend
       var sweet = (e && e.currentTarget && e.currentTarget.getAttribute)
         ? e.currentTarget.getAttribute('data-sweet') : null;
-      var checks = bookForm.querySelectorAll('input[name="Interesse"]');
+      var checks = bookForm.querySelectorAll('.interest-check');
       checks.forEach(function (c) { c.checked = false; });
       if (sweet) {
         checks.forEach(function (c) { if (c.value === sweet) c.checked = true; });
@@ -1370,6 +1464,11 @@
         bookStatus.classList.add('error');
         return;
       }
+
+      // voeg alle aangevinkte sweets samen tot één leesbare regel voor de mail
+      var picked = [];
+      bookForm.querySelectorAll('.interest-check:checked').forEach(function (c) { picked.push(c.value); });
+      document.getElementById('bf-interest').value = picked.length ? picked.join(', ') : 'Geen keuze aangevinkt';
 
       var btn = bookForm.querySelector('button[type="submit"]');
       var origText = btn.textContent;
