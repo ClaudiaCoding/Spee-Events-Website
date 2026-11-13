@@ -394,6 +394,16 @@
     .img-ph .ph-label svg { width: 20px; height: 20px; color: var(--gold-deep); }
     .hero-showcase .img-ph { aspect-ratio: 16 / 7; }
 
+    /* echte showcase-foto */
+    .showcase-img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 7;
+      object-fit: cover;
+      border-radius: 16px;
+      border: 1px solid rgba(var(--gold-rgb),0.25);
+    }
+
     /* ---------- SECTIES ---------- */
     .section {
       position: relative;
@@ -969,12 +979,7 @@
       <a href="#pakket" class="cta">Bekijk het pakket</a>
 
       <div class="hero-showcase">
-        <div class="img-ph">
-          <span class="ph-label">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-            Sfeerfoto compleet gestyled event
-          </span>
-        </div>
+        <img class="showcase-img" src="images/volledig%20evenement.jpg" alt="Een volledig verzorgd en gestyled event van Spee Events &amp; Experiences">
       </div>
     </section>
 
@@ -1120,7 +1125,7 @@
         <div>
           <ul class="included-list">
             <li>LED-scherm van 5 bij 2 meter met JBL Partybox 1000</li>
-            <li>Cupcakes en taarten, vers en op maat gemaakt</li>
+            <li>Hapjes en drankjes, vers en op maat verzorgd</li>
             <li>Branding op maat, van bedrukte kleding tot servetten met logo</li>
             <li>Volledige opbouw, styling en afbouw op locatie</li>
             <li>Eén aanspreekpunt voor uw hele event</li>
@@ -1302,7 +1307,7 @@
       if (e.key === 'Escape' && bookModal.classList.contains('open')) closeModal();
     });
 
-    // versturen via Formspree (blijft in de modal, toont bevestiging)
+    // versturen via Formspree; na succes door naar de bedankpagina
     bookForm.addEventListener('submit', function (e) {
       e.preventDefault();
       bookStatus.textContent = '';
@@ -1326,8 +1331,8 @@
         headers: { 'Accept': 'application/json' }
       }).then(function (res) {
         if (res.ok) {
-          bookFormWrap.classList.add('hidden');
-          bookSuccess.classList.remove('hidden');
+          var pakket = bookForm.querySelector('[name="Pakket"]').value;
+          window.location.href = 'bedankt.html?pakket=' + encodeURIComponent(pakket);
         } else {
           return res.json().then(function (data) {
             var msg = (data && data.errors)
