@@ -876,6 +876,19 @@
       .modal { padding: 38px 24px 30px; }
     }
 
+    /* Desktop: logo links, Boek nu rechts, menu-items precies in het midden */
+    @media (min-width: 781px) {
+      .nav {
+        display: grid;
+        grid-template-columns: 1fr auto auto auto 1fr;
+        align-items: center;
+        column-gap: clamp(22px, 3.2vw, 46px);
+      }
+      .nav-links { display: contents; }
+      .brand-logo { justify-self: start; }
+      .nav-links > li:last-child { justify-self: end; }
+    }
+
     /* Home-knop: alleen op desktop tonen, niet op mobiel */
     @media (max-width: 780px) { .nav-home { display: none; } }
   </style>
