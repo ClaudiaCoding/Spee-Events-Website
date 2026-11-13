@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Uw boeking is ontvangen &middot; Spee Events &amp; Experiences</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-display: 'Cinzel', serif;
+      --font-body: 'Cormorant Garamond', serif;
+      --font-script: 'Great Vibes', cursive;
+
+      --black: #0a0a0a;
+      --black-rgb: 10, 10, 10;
+      --gold: #d4af37;
+      --gold-rgb: 212, 175, 55;
+      --gold-light: #f5d97a;
+      --gold-deep: #b8860b;
+      --gold-gradient: linear-gradient(135deg, #b8860b 0%, #f5d97a 35%, #d4af37 55%, #9c7a1f 100%);
+
+      --text-muted: #cbb98f;
+      --text-cream: #e6dcc0;
+      --text-soft: #d8ceb2;
+      --text-dim: #9a8c64;
+      --text-faint: #7a6f52;
+
+      --panel-bg: rgba(14, 14, 14, 0.98);
+      --header-h: 74px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--text-muted);
+      font-family: var(--font-body);
+      font-size: 20px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 900px;
+      background: radial-gradient(circle, rgba(var(--gold-rgb),0.10) 0%, rgba(var(--gold-rgb),0) 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    .gold-text {
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: var(--gold);
+    }
+
+    /* ---------- NAVIGATION ---------- */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(var(--black-rgb),0.82);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(var(--gold-rgb),0.18);
+    }
+
+    .nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 32px;
+    }
+
+    .brand {
+      font-family: var(--font-display);
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .brand small {
+      display: block;
+      font-size: 0.5rem;
+      letter-spacing: 0.42em;
+      color: var(--text-muted);
+      margin-top: 4px;
+      font-family: var(--font-display);
+    }
+
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      height: 52px;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .brand-logo img { height: 100%; width: auto; display: block; }
+    .brand-logo:hover { opacity: 0.85; transform: translateY(-1px); }
+
+    .nav-links { display: flex; gap: 30px; list-style: none; }
+    .nav-links a {
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      position: relative;
+      padding: 4px 0;
+      transition: color 0.3s ease;
+    }
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0; bottom: -2px;
+      width: 0; height: 1px;
+      background: var(--gold-gradient);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--gold-light); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--gold);
+      font-size: 1.6rem;
+      cursor: pointer;
+    }
+
+    .nav-links a.nav-cta {
+      color: var(--black);
+      background: var(--gold-gradient);
+      padding: 10px 26px;
+      border-radius: 3px;
+      transition: filter 0.3s ease, transform 0.3s ease;
+    }
+    .nav-links a.nav-cta::after { display: none; }
+    .nav-links a.nav-cta:hover { color: var(--black); filter: brightness(1.08); transform: translateY(-1px); }
+
+    .dropdown { position: relative; }
+    .dropdown-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 0;
+      transition: color 0.3s ease;
+    }
+    .dropdown-toggle:hover { color: var(--gold-light); }
+    .dropdown-toggle .caret { font-size: 0.6rem; transition: transform 0.3s ease; }
+    .dropdown.open .dropdown-toggle { color: var(--gold-light); }
+    .dropdown.open .dropdown-toggle .caret { transform: rotate(180deg); }
+
+    .dropdown-menu {
+      list-style: none;
+      position: absolute;
+      top: calc(100% + 14px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      min-width: 210px;
+      background: var(--panel-bg);
+      border: 1px solid rgba(var(--gold-rgb),0.28);
+      border-radius: 12px;
+      padding: 10px 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.28s ease, transform 0.28s ease, visibility 0.28s;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.5);
+      z-index: 120;
+    }
+    .dropdown-menu::before {
+      content: "";
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+      width: 10px;
+      height: 10px;
+      background: var(--panel-bg);
+      border-left: 1px solid rgba(var(--gold-rgb),0.28);
+      border-top: 1px solid rgba(var(--gold-rgb),0.28);
+    }
+    .dropdown:hover .dropdown-menu,
+    .dropdown.open .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+    .dropdown-menu li { width: 100%; }
+    .dropdown-menu a {
+      display: block;
+      padding: 11px 24px;
+      font-family: var(--font-display);
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      white-space: nowrap;
+      transition: color 0.25s ease, background 0.25s ease;
+    }
+    .dropdown-menu a::after { display: none; }
+    .dropdown-menu a:hover { color: var(--gold-light); background: rgba(var(--gold-rgb),0.08); }
+
+    /* ---------- BEDANKT ---------- */
+    main { position: relative; z-index: 1; flex: 1; }
+
+    .thanks {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 96px 24px 40px;
+      text-align: center;
+    }
+
+    .check {
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      border: 1px solid rgba(var(--gold-rgb),0.5);
+      background: radial-gradient(circle, rgba(var(--gold-rgb),0.12), rgba(var(--gold-rgb),0) 70%);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 26px;
+      animation: pop 0.7s cubic-bezier(.2,.9,.3,1.3) both;
+    }
+    .check svg { width: 40px; height: 40px; color: var(--gold-light); }
+    .check svg path {
+      stroke-dasharray: 30;
+      stroke-dashoffset: 30;
+      animation: draw 0.6s 0.35s ease forwards;
+    }
+    @keyframes pop { from { transform: scale(0.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+
+    .thanks .eyebrow {
+      font-family: var(--font-script);
+      font-size: 2rem;
+      color: var(--gold-light);
+      margin-bottom: 6px;
+      opacity: 0.9;
+    }
+
+    .thanks h1 {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(2rem, 5.4vw, 3.8rem);
+      letter-spacing: 0.12em;
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+
+    .thanks .subtitle {
+      font-family: var(--font-display);
+      font-size: clamp(0.7rem, 1.6vw, 0.95rem);
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 30px;
+    }
+
+    .pkg-chip {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      border: 1px solid rgba(var(--gold-rgb),0.35);
+      border-radius: 40px;
+      padding: 9px 22px;
+      margin-bottom: 30px;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin: 0 auto 30px;
+      width: 220px;
+    }
+    .divider::before, .divider::after {
+      content: "";
+      height: 1px;
+      flex: 1;
+      background: linear-gradient(90deg, transparent, var(--gold-deep), transparent);
+    }
+    .divider span { color: var(--gold); font-size: 0.7rem; }
+
+    .thanks .message {
+      max-width: 620px;
+      margin: 0 auto;
+      font-size: 1.28rem;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--text-cream);
+    }
+
+    /* ---------- WAT NU ---------- */
+    .next {
+      max-width: 1000px;
+      margin: 56px auto 0;
+      padding: 64px 24px 70px;
+      text-align: center;
+      border-top: 1px solid rgba(var(--gold-rgb),0.14);
+      border-bottom: 1px solid rgba(var(--gold-rgb),0.14);
+      background: linear-gradient(180deg, rgba(var(--gold-rgb),0.03), rgba(0,0,0,0));
+    }
+    .next h2 {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(1.4rem, 3.4vw, 2rem);
+      letter-spacing: 0.16em;
+      margin-bottom: 6px;
+    }
+    .next .script-accent {
+      font-family: var(--font-script);
+      font-size: 1.6rem;
+      color: var(--gold-light);
+      margin-bottom: 40px;
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+    .step .num {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--black);
+      background: var(--gold-gradient);
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .step h3 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      color: var(--gold-light);
+    }
+    .step p {
+      font-weight: 300;
+      font-size: 1.02rem;
+      color: var(--text-soft);
+      max-width: 260px;
+      margin: 0 auto;
+    }
+
+    /* ---------- KNOPPEN ---------- */
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+      padding: 56px 24px 90px;
+    }
+    .cta {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      border: 1px solid var(--gold-deep);
+      padding: 15px 40px;
+      transition: all 0.35s ease;
+    }
+    .cta:hover { background: var(--gold-gradient); color: var(--black); border-color: transparent; }
+    .cta.filled { background: var(--gold-gradient); color: var(--black); border-color: transparent; }
+    .cta.filled:hover { filter: brightness(1.08); transform: translateY(-1px); }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid rgba(var(--gold-rgb),0.18);
+      text-align: center;
+      padding: 40px 24px;
+    }
+    footer .brand { display: inline-block; margin-bottom: 14px; }
+    footer .contact { font-size: 0.95rem; letter-spacing: 0.08em; color: var(--text-muted); }
+    footer .copyright {
+      margin-top: 18px;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      color: var(--text-faint);
+      font-family: var(--font-display);
+    }
+
+    .hidden { display: none !important; }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 980px) {
+      .steps { grid-template-columns: 1fr; gap: 46px; }
+    }
+
+    @media (max-width: 780px) {
+      .nav-toggle { display: block; }
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        background: var(--black);
+        border-bottom: 1px solid rgba(var(--gold-rgb),0.18);
+        max-height: 0;
+        overflow-y: auto;
+        transition: max-height 0.4s ease;
+      }
+      .nav-links.open { max-height: 85vh; }
+      .nav-links li { width: 100%; }
+      .nav-links > li > a,
+      .dropdown-toggle {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        padding: 18px 0;
+        border-top: 1px solid rgba(var(--gold-rgb),0.10);
+      }
+      .dropdown-menu {
+        position: static;
+        transform: none;
+        opacity: 1;
+        visibility: visible;
+        min-width: 0;
+        width: 100%;
+        border: none;
+        border-radius: 0;
+        background: rgba(255,255,255,0.04);
+        box-shadow: none;
+        padding: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.35s ease;
+      }
+      .dropdown-menu::before { display: none; }
+      .dropdown:hover .dropdown-menu { max-height: 0; transform: none; }
+      .dropdown.open .dropdown-menu { max-height: 320px; transform: none; }
+      .dropdown-menu a { justify-content: center; text-align: center; padding: 15px 0; }
+      .thanks { padding-top: 70px; }
+      .nav-home { display: none; }
+    }
+
+    @media (max-width: 460px) {
+      .actions .cta { width: 100%; text-align: center; }
+    }
+
+    /* Desktop: logo links, Boek nu rechts, menu-items precies in het midden */
+    @media (min-width: 781px) {
+      .nav {
+        display: grid;
+        grid-template-columns: 1fr repeat(4, auto) 1fr;
+        align-items: center;
+        column-gap: clamp(16px, 2.6vw, 40px);
+      }
+      .nav-links { display: contents; }
+      .brand-logo { justify-self: start; }
+      .nav-links > li:last-child { justify-self: end; }
+      .nav-links li:not(.dropdown) { display: flex; align-items: center; }
+
+      .dropdown,
+      .dropdown-menu { display: contents; }
+      .dropdown-toggle,
+      .dropdown-menu::before { display: none; }
+      .dropdown-menu { visibility: visible; }
+      .dropdown-menu li { width: auto; }
+      .dropdown-menu a {
+        padding: 4px 0;
+        font-size: 0.72rem;
+        letter-spacing: 0.18em;
+        background: none;
+      }
+      .dropdown-menu a:hover { background: none; }
+      .dropdown-menu a::after { display: block; }
+    }
+
+    @media (min-width: 781px) and (max-width: 1080px) {
+      .nav { padding: 20px 24px; }
+      .nav-links a,
+      .dropdown-menu a { font-size: 0.66rem; letter-spacing: 0.12em; }
+      .nav-links a.nav-cta { padding: 10px 18px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .check, .check svg path { animation: none; stroke-dashoffset: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav class="nav">
+      <a href="index.html" class="brand-logo" aria-label="Spee Events &amp; Experiences, naar de homepage">
+        <img src="images/DS%20logo.jpeg" alt="Spee Events &amp; Experiences">
+      </a>
+      <button class="nav-toggle" aria-label="Menu">&#9776;</button>
+      <ul class="nav-links" id="navLinks">
+        <li class="nav-home"><a href="index.html">Home</a></li>
+        <li class="dropdown" id="pkgDropdown">
+          <button class="dropdown-toggle" id="pkgToggle" aria-expanded="false" aria-haspopup="true">
+            Package Deals <span class="caret">&#9662;</span>
+          </button>
+          <ul class="dropdown-menu">
+            <li><a href="sweet-package.html">Sweet Package</a></li>
+            <li><a href="led-package.html">LED Package</a></li>
+            <li><a href="experience-package.html">Experience Package</a></li>
+          </ul>
+        </li>
+        <li><a href="index.html#ervaringen" class="nav-cta">Boek nu</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="thanks">
+      <span class="check" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+      </span>
+
+      <p class="eyebrow">Hartelijk dank</p>
+      <h1 class="gold-text">Bedankt voor uw boeking</h1>
+      <p class="subtitle">Uw boeking is ontvangen</p>
+
+      <!-- Toont het gekozen pakket als de link ?pakket=... bevat, bijv. bedankt.html?pakket=LED%20Package -->
+      <p class="pkg-chip hidden" id="pkgChip"></p>
+
+      <div class="divider"><span>&#10022;</span></div>
+
+      <p class="message">
+        Wat fijn dat u voor Spee kiest. Wij hebben uw boeking in goede orde
+        ontvangen en nemen zo snel mogelijk persoonlijk contact met u op om
+        alles met u door te nemen.
+      </p>
+    </section>
+
+    <section class="next">
+      <h2 class="gold-text">Wat gebeurt er nu?</h2>
+      <p class="script-accent">Van aanvraag tot uw moment</p>
+
+      <div class="steps">
+        <div class="step">
+          <span class="num">1</span>
+          <h3>Wij bekijken uw wensen</h3>
+          <p>Uw aanvraag ligt bij ons en wij gaan direct voor u aan de slag.</p>
+        </div>
+        <div class="step">
+          <span class="num">2</span>
+          <h3>Persoonlijk contact</h3>
+          <p>Wij nemen zo snel mogelijk contact met u op om alles af te stemmen.</p>
+        </div>
+        <div class="step">
+          <span class="num">3</span>
+          <h3>Uw moment</h3>
+          <p>Wij verzorgen alles tot in de puntjes, u hoeft alleen te genieten.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="actions">
+      <a href="index.html" class="cta filled">Terug naar home</a>
+      <a href="index.html#ervaringen" class="cta">Bekijk onze pakketten</a>
+    </div>
+
+  </main>
+
+  <footer>
+    <a href="index.html" class="brand gold-text">SPEE<small>Events &amp; Experiences</small></a>
+    <p class="contact"><span>Haaften &amp; Omgeving</span></p>
+    <p class="copyright">&copy; 2026 Spee Events &amp; Experiences</p>
+  </footer>
+
+  <script>
+    var navLinks = document.getElementById('navLinks');
+    var pkgDropdown = document.getElementById('pkgDropdown');
+    var pkgToggle = document.getElementById('pkgToggle');
+    var siteHeader = document.querySelector('header');
+
+    function syncHeaderHeight() {
+      document.documentElement.style.setProperty('--header-h', siteHeader.offsetHeight + 'px');
+    }
+    syncHeaderHeight();
+    window.addEventListener('resize', syncHeaderHeight);
+
+    document.querySelector('.nav-toggle').addEventListener('click', function () {
+      navLinks.classList.toggle('open');
+    });
+
+    pkgToggle.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var isOpen = pkgDropdown.classList.toggle('open');
+      pkgToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!pkgDropdown.contains(e.target)) {
+        pkgDropdown.classList.remove('open');
+        pkgToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Gekozen pakket tonen als dat in de link staat (?pakket=...)
+    try {
+      var pakket = new URLSearchParams(window.location.search).get('pakket');
+      if (pakket) {
+        var chip = document.getElementById('pkgChip');
+        chip.textContent = pakket;
+        chip.classList.remove('hidden');
+      }
+    } catch (e) {}
+  </script>
+
+</body>
+</html>
