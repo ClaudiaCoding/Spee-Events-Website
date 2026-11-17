@@ -403,6 +403,17 @@
       border-radius: 16px;
       border: 1px solid rgba(var(--gold-rgb),0.25);
     }
+    /* echte foto in de 'wat u kunt verwachten'-sectie */
+    .included-img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 300px;
+      aspect-ratio: 5 / 4;
+      object-fit: cover;
+      border-radius: 16px;
+      border: 1px solid rgba(var(--gold-rgb),0.25);
+    }
 
     /* ---------- SECTIES ---------- */
     .section {
@@ -824,7 +835,8 @@
       .specs { grid-template-columns: repeat(2, 1fr); }
       .steps { grid-template-columns: 1fr; gap: 46px; }
       .included-grid { grid-template-columns: 1fr; }
-      .included-grid .img-ph { min-height: 240px; }
+      .included-grid .img-ph,
+      .included-img { min-height: 240px; }
     }
 
     @media (max-width: 780px) {
@@ -938,7 +950,7 @@
   <header>
     <nav class="nav">
       <!-- Logo linksboven: klik = terug naar de homepage -->
-      <a href="index.html" class="brand-logo" aria-label="Spee Events &amp; Experiences — naar de homepage">
+      <a href="index.html" class="brand-logo" aria-label="Spee Events &amp; Experiences, naar de homepage">
         <img src="images/DS%20logo.jpeg" alt="Spee Events &amp; Experiences">
       </a>
       <button class="nav-toggle" aria-label="Menu">&#9776;</button>
@@ -965,13 +977,13 @@
     <section class="page-hero">
       <p class="eyebrow">Alles in één beleving</p>
       <h1 class="gold-text">Experience Package</h1>
-      <p class="subtitle">Beeld, geluid, zoet en styling in één pakket</p>
+      <p class="subtitle">Beeld, geluid, hapjes en styling in één pakket</p>
 
       <div class="divider"><span>&#10070;</span></div>
 
       <p class="mission">
         Ons meest complete pakket, waarin al onze diensten samenkomen. Een groot
-        LED-scherm met krachtig geluid, ambachtelijke cupcakes en taarten, branding
+        LED-scherm met krachtig geluid, verzorgde hapjes en drankjes, branding
         op maat en volledige opbouw en styling. Wij verzorgen uw event van begin tot
         eind, zodat u alleen nog hoeft te genieten.
       </p>
@@ -979,7 +991,7 @@
       <a href="#pakket" class="cta">Bekijk het pakket</a>
 
       <div class="hero-showcase">
-        <img class="showcase-img" src="images/volledig%20evenement.jpg" alt="Een volledig verzorgd en gestyled event van Spee Events &amp; Experiences">
+        <img class="showcase-img" src="images/buiten%20verjaardag.jpg" alt="Buitenverjaardag verzorgd door Spee Events &amp; Experiences">
       </div>
     </section>
 
@@ -1002,34 +1014,34 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="1.5"/><path d="M8 21h8M12 17v4"/></svg>
             </span>
             <h3>LED-scherm &amp; geluid</h3>
-            <p>Een indrukwekkend LED-scherm van 5 bij 2 meter met de krachtige JBL Partybox 1000. Perfect voor beelden, video's, sfeerloops of uw eigen boodschap.</p>
+            <p>Een indrukwekkend LED-scherm van 5 bij 2 meter met de krachtige JBL PartyBox 1000. Perfect voor beelden, video's, sfeerloops of uw eigen boodschap.</p>
             <span class="spec-tag arrow">Bekijk het LED Package &rarr;</span>
           </div>
         </a>
 
-        <!-- Cupcakes & taarten -->
-        <a href="sweet-package.html" class="spec-card">
+        <!-- Hapjes & drankjes -->
+        <div class="spec-card">
           <div class="body">
             <span class="spec-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 11h12l-1.4 8.1a1 1 0 0 1-1 .9H8.4a1 1 0 0 1-1-.9L6 11z"/><path d="M7 11a3 3 0 0 1 .4-5.2 4 4 0 0 1 7.2 0A3 3 0 0 1 17 11"/><path d="M12 5V3"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8M12 15v7M6 3h12l-1 6a5 5 0 01-10 0L6 3z"/></svg>
             </span>
-            <h3>Cupcakes &amp; taarten</h3>
-            <p>Ambachtelijk zoet, vers en met de hand afgewerkt in uw kleuren en thema. Van sierlijke cupcakes tot een taart als middelpunt van uw viering.</p>
-            <span class="spec-tag arrow">Bekijk het Sweet Package &rarr;</span>
+            <h3>Hapjes &amp; drankjes</h3>
+            <p>Verzorgde hapjes en drankjes, vers bereid en afgestemd op uw gasten en de sfeer van uw event.</p>
+            <span class="spec-tag">Inclusief</span>
           </div>
-        </a>
+        </div>
 
         <!-- Branding op maat -->
-        <a href="index.html#branding-op-maat" class="spec-card">
+        <div class="spec-card">
           <div class="body">
             <span class="spec-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0l-6.2-6.2A2 2 0 0 1 4 12.9V5a1 1 0 0 1 1-1h7.9a2 2 0 0 1 1.4.6l6.3 6.3a2 2 0 0 1 0 2.5z"/><circle cx="8.5" cy="8.5" r="1.5"/></svg>
             </span>
             <h3>Branding op maat</h3>
             <p>Bedrukte kleding, servetten met logo, handdoeken en meer. Wij geven uw event een eigen, herkenbare uitstraling tot in de kleinste details.</p>
-            <span class="spec-tag arrow">Meer over branding &rarr;</span>
+            <span class="spec-tag">Inclusief</span>
           </div>
-        </a>
+        </div>
 
         <!-- Opbouw & styling -->
         <div class="spec-card">
@@ -1103,9 +1115,9 @@
         <span class="price-from">Vanaf</span>
         <div class="price-amount gold-text">&euro;1200</div>
         <p>
-          LED-scherm en geluid, cupcakes en taarten, branding op maat en volledige
+          LED-scherm en geluid, hapjes en drankjes, branding op maat en volledige
           opbouw en styling, samengebracht in één pakket. Omdat alles maatwerk is,
-          stellen wij op basis van uw wensen een passende prijs op aanvraag samen.
+          stellen wij op basis van uw wensen op aanvraag een passende prijs samen.
         </p>
         <a href="#boeken" class="cta filled" data-open-modal>Vraag uw Experience Package aan</a>
       </div>
@@ -1117,14 +1129,11 @@
       <p class="script-accent">Tot in de puntjes verzorgd</p>
 
       <div class="included-grid">
-        <div class="img-ph"><span class="ph-label">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-          Sfeerfoto compleet event
-        </span></div>
+        <img class="included-img" src="images/volledig%20evenement.jpg" alt="Een volledig verzorgd en gestyled event van Spee Events &amp; Experiences">
 
         <div>
           <ul class="included-list">
-            <li>LED-scherm van 5 bij 2 meter met JBL Partybox 1000</li>
+            <li>LED-scherm van 5 bij 2 meter met JBL PartyBox 1000</li>
             <li>Hapjes en drankjes, vers en op maat verzorgd</li>
             <li>Branding op maat, van bedrukte kleding tot servetten met logo</li>
             <li>Volledige opbouw, styling en afbouw op locatie</li>
